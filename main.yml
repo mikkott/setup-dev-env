@@ -24,6 +24,7 @@
       - git
       - systemd-devel
       - pulseaudio-libs-devel
+      - cmake
       - "@Virtualization"
       - "@Development Tools"
     become: true
@@ -81,7 +82,7 @@
       path: ~/build/scream/Receivers/unix/build
       state: directory
 
-  - name: Source .bash_profile to refresh PATH and build supergfxctl
+  - name: Build Scream
     shell: cmake .. && make
     args:
       chdir: ~/build/scream/Receivers/unix/build
