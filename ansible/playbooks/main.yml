@@ -18,6 +18,7 @@
       - vim
       - curl
       - git
+      - systemd-devel
       - "@Virtualization"
       - "@Development Tools"
     become: true
