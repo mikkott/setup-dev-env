@@ -1,6 +1,10 @@
 
 - name: Setup localhost
   hosts: localhost
+  vars_prompt:
+  - name: ansible_become_password
+    prompt: "Enter sudo password"
+    private: true
   become: false
 
   tasks:
