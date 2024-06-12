@@ -1,0 +1,7 @@
+# handlers/restart_services.yml
+
+- name: restart supergfxd
+  systemd:
+    name: supergfxd
+    state: restarted
+    enabled: yes

@@ -68,6 +68,7 @@
       backup: yes
       mode: '0644'
     become: true
+    notify: restart supergfxd
 
   - name: Enable and start libvirtd service
     systemd:

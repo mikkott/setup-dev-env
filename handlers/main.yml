@@ -1,0 +1,4 @@
+# handlers/main.yml
+
+- name: Include restart handlers
+  import_tasks: restart_services.yml
