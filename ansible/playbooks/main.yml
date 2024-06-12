@@ -37,10 +37,10 @@
       repo: https://gitlab.com/asus-linux/supergfxctl.git
       dest: ~/build/supergfxctl
 
-  - name: Build supergfxctl
-    command:
-      cmd: source ~/.bash_profile && make
-      chdir: ~/build/supergfxctl
+  - name: Source .bash_profile to refresh PATH
+    shell: . ~/.bash_profile && make
+    args:
+      executable: /bin/bash
 
   - name: Install supergfxctl
     command:
