@@ -42,7 +42,7 @@
       repo: https://gitlab.com/asus-linux/supergfxctl.git
       dest: ~/build/supergfxctl
 
-  - name: Source .bash_profile to refresh PATH
+  - name: Source .bash_profile to refresh PATH and build supergfxctl
     shell: . ~/.bash_profile && make
     args:
       executable: /bin/bash
