@@ -61,11 +61,10 @@
       enabled: yes
     become: true
 
-  - name: Update supergfxd configuration
-    lineinfile:
-      path: /etc/supergfxd.conf
-      line: "vfio_save: true"
-      state: present
+  - name: Copy supergfxd configuration file to remote
+    copy:
+      src: supergfxd.conf
+      dest: /etc/supergfxd.conf
       backup: yes
       create: yes
       mode: '0644'
