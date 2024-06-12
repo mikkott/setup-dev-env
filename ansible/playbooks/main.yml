@@ -1,12 +1,13 @@
 
 - name: Setup localhost
   hosts: localhost
-  become: true
+  become: false
 
   tasks:
   - name: Update DNF cache
     dnf:
       update_cache: yes
+    become: true
 
   - name: Install required packages
     dnf:
@@ -19,14 +20,12 @@
       - git
       - "@Virtualization"
       - "@Development Tools"
+    become: true
 
   - name: Install Rust
     shell: curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
     args:
       creates: /home/$USER/.cargo/bin/rustc
-    environment:
-      USER: "{{ ansible_user }}"
-    become_user: "{{ ansible_user }}"
 
   - name: Create build directory
     file:
@@ -42,9 +41,6 @@
     command:
       cmd: . ~/.bashrc && make
       chdir: ~/build/supergfxctl
-    environment:
-      USER: "{{ ansible_user }}"
-    become_user: "{{ ansible_user }}"
 
   - name: Install supergfxctl
     command:
@@ -57,6 +53,7 @@
       name: supergfxd
       state: started
       enabled: yes
+    become: true
 
   - name: Update supergfxd configuration
     lineinfile:
@@ -73,4 +70,5 @@
       name: libvirtd
       state: started
       enabled: yes
+    become: true
 
