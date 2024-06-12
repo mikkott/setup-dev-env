@@ -8,7 +8,7 @@
     dnf:
       update_cache: yes
 
-  - name: Install Firefox and Vim
+  - name: Install required packages
     dnf:
       name: "{{ item }}"
       state: present
@@ -21,8 +21,8 @@
       - "@Development Tools"
 
   - name: Install Rust
-    command:
-      cmd: curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+    shell: curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+    args:
       creates: /home/$USER/.cargo/bin/rustc
     environment:
       USER: "{{ ansible_user }}"

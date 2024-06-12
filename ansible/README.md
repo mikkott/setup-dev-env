@@ -7,4 +7,4 @@
 `git clone https://github.com/mikkott/setup-dev-env.git`
 
 # Run Ansible playbook
-`ansible-playbook ansible/playbooks/main.yml`
+`ansible-playbook ansible/playbooks/main.yml -e ansible_user=$(whoami)`
