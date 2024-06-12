@@ -71,9 +71,4 @@
     notify: restart supergfxd
 
   - name: Enable and start libvirtd service
-    systemd:
-      name: libvirtd
-      state: started
-      enabled: yes
-    become: true
     notify: restart libvirtd
