@@ -55,12 +55,10 @@ sudo firewall-cmd --reload
 
 # This script retrieves the IP address of a KVM virtual machine named "fedora-desktop-40"
 # Copies the SSH public key to the virtual machine
-
-KVM_IP=$(virsh domifaddr fedora-desktop-40|awk 'NR>2 {sub(/\/.*$/, "", $4); print $4}')
-ssh-copy-id w@$KVM_IP
 KVM_IP=$(virsh domifaddr fedora-desktop-40|awk 'NR>2 {sub(/\/.*$/, "", $4); print 
 $4}')
-ssh-copy-id w@$KVM_IP
+# Change the username
+ssh-copy-id YOUR_USERNAME@$KVM_IP
 
-
-ansible-playbook main.yml -i $KVM_IP -e 'ansible_user=w' -e 'ansible_ssh_private_key_file=~/.ssh/id_ecdsa'
+# This script uses the Ansible tool to automate the configuration of the Fedora Desktop 40 virtual machine. Change username and private SSH key location
+ansible-playbook main.yml -i $KVM_IP -e 'ansible_user=YOUR_USERNAME' -e 'ansible_ssh_private_key_file=~/.ssh/id_ecdsa'
