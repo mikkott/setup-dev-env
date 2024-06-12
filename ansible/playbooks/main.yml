@@ -1,0 +1,74 @@
+
+- name: Setup localhost
+  hosts: localhost
+  become: true
+
+  tasks:
+  - name: Update DNF cache
+    dnf:
+      update_cache: yes
+
+  - name: Install Firefox and Vim
+    dnf:
+      name: "{{ item }}"
+      state: present
+    loop:
+      - firefox
+      - vim
+      - curl
+      - git
+      - Virtualization
+      - "Development Tools"
+
+  - name: Install Rust
+    command:
+      cmd: curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+      creates: /home/$USER/.cargo/bin/rustc
+    environment:
+      USER: "{{ ansible_user }}"
+    become_user: "{{ ansible_user }}"
+
+  - name: Create build directory
+    file:
+      path: ~/build
+      state: directory
+
+  - name: Clone supergfxctl repository
+    git:
+      repo: https://gitlab.com/asus-linux/supergfxctl.git
+      dest: ~/build/supergfxctl
+
+  - name: Build supergfxctl
+    command:
+      cmd: make
+      chdir: ~/build/supergfxctl
+    become: true
+
+  - name: Install supergfxctl
+    command:
+      cmd: make install
+      chdir: ~/build/supergfxctl
+    become: true
+
+  - name: Enable and start supergfxd service
+    systemd:
+      name: supergfxd
+      state: started
+      enabled: yes
+
+  - name: Update supergfxd configuration
+    lineinfile:
+      path: /etc/supergfxd.conf
+      line: "vfio_save: true"
+      state: present
+      backup: yes
+      create: yes
+      mode: '0644'
+    become: true
+
+  - name: Enable and start libvirtd service
+    systemd:
+      name: libvirtd
+      state: started
+      enabled: yes
+
