@@ -47,7 +47,7 @@
   - name: Install supergfxctl
     command:
       cmd: make install
-      chdir: ~/build/supergfxctl
+      chdir: "/home/{{ ansible_user }}/build/supergfxctl"
     become: true
 
   - name: Enable and start supergfxd service
