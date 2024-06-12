@@ -23,6 +23,7 @@
       - curl
       - git
       - systemd-devel
+      - pulseaudio-libs-devel
       - "@Virtualization"
       - "@Development Tools"
     become: true
@@ -69,6 +70,28 @@
       mode: '0644'
     become: true
     notify: restart supergfxd
+
+  - name: Clone Scream repository
+    git:
+      repo: https://github.com/duncanthrax/scream.git
+      dest: ~/build/scream
+
+  - name: Create Scream build directory
+    file:
+      path: ~/build/scream/Receivers/unix/build
+      state: directory
+
+  - name: Source .bash_profile to refresh PATH and build supergfxctl
+    shell: cmake .. && make
+    args:
+      chdir: ~/build/scream/Receivers/unix/build
+
+  - name: Copy file from remote to remote
+    copy:
+      src: "/home/{{ ansible_user }}/build/scream/Receivers/unix/build/scream"
+      dest: /usr/local/bin/scream
+      remote_src: yes
+    become: true
 
   - name: Enable and start libvirtd service
     systemd:
