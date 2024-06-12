@@ -91,6 +91,7 @@
     copy:
       src: "/home/{{ ansible_user }}/build/scream/Receivers/unix/build/scream"
       dest: /usr/local/bin/scream
+      mode: '0744'
       remote_src: yes
     become: true
 
