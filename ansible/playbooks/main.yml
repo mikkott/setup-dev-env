@@ -39,7 +39,7 @@
 
   - name: Build supergfxctl
     command:
-      cmd: . ~/.bashrc && make
+      cmd: . ~/.bash_profile && make
       chdir: ~/build/supergfxctl
 
   - name: Install supergfxctl
