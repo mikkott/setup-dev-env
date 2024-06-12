@@ -41,6 +41,7 @@
     shell: . ~/.bash_profile && make
     args:
       executable: /bin/bash
+      chdir: ~/build/supergfxctl
 
   - name: Install supergfxctl
     command:
