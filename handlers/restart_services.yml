@@ -5,3 +5,9 @@
     name: supergfxd
     state: restarted
     enabled: yes
+
+- name: restart libvirtd
+  systemd:
+    name: libvirtd
+    state: restarted
+    enabled: yes
