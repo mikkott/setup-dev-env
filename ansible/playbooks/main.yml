@@ -40,7 +40,7 @@
 
   - name: Build supergfxctl
     command:
-      cmd: make
+      cmd: . ~/.bashrc && make
       chdir: ~/build/supergfxctl
     become: true
 
