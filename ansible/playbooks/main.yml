@@ -42,7 +42,9 @@
     command:
       cmd: . ~/.bashrc && make
       chdir: ~/build/supergfxctl
-    become: true
+    environment:
+      USER: "{{ ansible_user }}"
+    become_user: "{{ ansible_user }}"
 
   - name: Install supergfxctl
     command:
